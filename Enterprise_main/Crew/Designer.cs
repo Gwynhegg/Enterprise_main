@@ -10,7 +10,7 @@ namespace Enterprise_main
     {
         private int designSkill;
         int self_fatigue, salary;
-        double self_performance = 0.5;
+        double self_performance = 0.5,additional_performance=0;
         bool tired;
         //Конструктор класса, описывающий навыки дизайнера, а также его зарплату
         public Designer(int designSkill)
@@ -27,6 +27,11 @@ namespace Enterprise_main
             return salary;
         }
 
+        public override void set_AddPerformance(double performance)
+        {
+            this.additional_performance = performance;
+        }
+
         public override void ToWork(Game game)
         {
             //Если работа дизайнера не закончена и дизайнер не в отпуске, то...
@@ -40,7 +45,7 @@ namespace Enterprise_main
                 int designDifficulty = game.get_design_difficulty();
                 if (designDifficulty > 0)
                 {
-                    designDifficulty -= (int)(designSkill * self_performance);
+                    designDifficulty -= (int)(designSkill * (self_performance+additional_performance));
                     self_fatigue += 2;
                     game.set_design_difficulty(designDifficulty);
                 }

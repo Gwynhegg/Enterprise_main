@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="Crew\Human.cs" />
+    <Compile Include="Crew\Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Crew\Programmer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

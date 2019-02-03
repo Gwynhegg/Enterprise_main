@@ -16,7 +16,7 @@ namespace Enterprise_main
         int days = 1;
         Game currentGame;
         List<Human> crew;
-    //    List<Manager> managers;
+        List<Manager> managers;
         public form_Enterprise()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace Enterprise_main
             txt_currName.Text = director1.returnName().ToString();
 
             //Создаем лист для команды разработчиков
-       //     managers = new List<Manager>();
+            managers = new List<Manager>();
             crew = new List<Human>();
 
             //Выводим течение дней и запускаем процесс
@@ -47,6 +47,7 @@ namespace Enterprise_main
             crew.Add(new Designer(50));
             crew.Add(new ScreenWriter(50));
             crew.Add(new SoundDesigner(50));
+            managers.Add(new Manager(50));
 
         }
 
@@ -69,7 +70,15 @@ namespace Enterprise_main
                 //Если проект есть, выводим данные о его готовности
                 txt_currReadiness.Text = director1.readiness_ofProject().ToString();
             }
-
+            foreach(Manager man in managers)
+            {
+                if (days % 30 == 0)
+                {
+                    //Выплачиваем зарплату в нужный срок
+                    director1.setBudget(director1.returnBudget() - man.GetPaid());
+                }
+                man.GetWork(crew);
+            }
             //Для каждого члена команды
             foreach(Human buddy in crew)
             {   

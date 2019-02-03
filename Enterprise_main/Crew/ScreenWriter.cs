@@ -10,7 +10,7 @@ namespace Enterprise_main
     {
         private int designSkill;
         int self_fatigue, salary;
-        double self_performance = 0.5;
+        double self_performance = 0.5,additional_performance=0;
         bool tired;
         //Конструктор класса, описывающий навыки сценариста, а также его зарплату
         public ScreenWriter(int designSkill)
@@ -19,7 +19,11 @@ namespace Enterprise_main
             salary = designSkill;
             self_fatigue = 0;
         }
-
+  
+        public override void set_AddPerformance(double performance)
+        {
+            this.additional_performance = performance;
+        }
 
         //Поступление платы сценаристу
         public override int GetPaid()
@@ -40,7 +44,7 @@ namespace Enterprise_main
                 int plotDifficulty = game.get_plot_difficulty();
                 if (plotDifficulty > 0)
                 {
-                    plotDifficulty -= (int)(designSkill * self_performance);
+                    plotDifficulty -= (int)(designSkill * (self_performance+additional_performance));
                     self_fatigue += 2;
                     game.set_plot_difficulty(plotDifficulty);
                 }

@@ -11,7 +11,7 @@ namespace Enterprise_main
     {
         private int codeSkill, designSkill;
         int self_fatigue, salary;
-        double self_performance = 0.5;
+        double self_performance = 0.5,additional_performance=0;
         bool tired;
         //Конструктор класса, описывающий дизайнерские и кодерские навыки программиста, а также его зарплату
         public Programmer(int codeSkill, int designSkill)
@@ -22,6 +22,10 @@ namespace Enterprise_main
             self_fatigue = 0;
         }
 
+        public override void set_AddPerformance(double performance)
+        {
+            this.additional_performance = performance;
+        }
         //Поступление платы программисту
         public override int GetPaid()
         {
@@ -43,7 +47,7 @@ namespace Enterprise_main
                 {
                     int codeDifficulty = game.get_code_difficulty();
                     //Программист вносит лепту в его завершение и понемногу устает...
-                    codeDifficulty -= (int)(codeSkill * self_performance);
+                    codeDifficulty -= (int)(codeSkill * (self_performance+additional_performance));
                     self_fatigue += 2;
                     game.set_code_difficulty(codeDifficulty);
                 }

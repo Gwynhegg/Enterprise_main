@@ -10,7 +10,7 @@ namespace Enterprise_main
     {
         private int designSkill;
         int self_fatigue, salary;
-        double self_performance = 0.5;
+        double self_performance = 0.5, additional_performance = 0;
         bool tired;
         //Конструктор класса, описывающий навыки звукового дизайнера, а также его зарплату
         public SoundDesigner(int designSkill)
@@ -20,6 +20,10 @@ namespace Enterprise_main
             self_fatigue = 0;
         }
 
+        public override void set_AddPerformance(double performance)
+        {
+            this.additional_performance = performance;
+        }
 
         //Поступление платы звук. дизайнеру
         public override int GetPaid()
@@ -40,7 +44,7 @@ namespace Enterprise_main
                 int soundDifficulty = game.get_sound_difficulty();
                 if (soundDifficulty > 0)
                 {
-                    soundDifficulty -= (int)(designSkill * self_performance);
+                    soundDifficulty -= (int)(designSkill * (self_performance+additional_performance));
                     self_fatigue += 2;
                     game.set_sound_difficulty(soundDifficulty);
                 }
