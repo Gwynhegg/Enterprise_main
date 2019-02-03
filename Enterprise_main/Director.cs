@@ -13,36 +13,46 @@ namespace Enterprise_main
         private int budget;
         public bool hasProject = false;
 
+        //Конструктор класса, определяющий имя фирмы и начальный бюджет
         public Director(string name, int budget)
         {
             nameofFirm = name;
             this.budget = budget;
         }
 
+        //геттер бюджета
         public int returnBudget()
         {
             return budget;
         }
-
+    
+        //сеттер бюджета
         public void setBudget(int budget)
         {
             this.budget = budget;
         }
 
+        //геттер имени фирмы
         public string returnName()
         {
             return nameofFirm;
         }
 
+        //Метод начала проекта
         public void startProject(string genre, string size, string title)
         {
+            //Создание нового экземпляра игры с заданным жанром, размером и названием
             currentGame = new Game(genre,size,title);
+            //Просчитывание сложности игры
             currentGame.getDifficulty();
         }
+        //геттер текущей игры
         public Game getGame()
         {
             return currentGame;
         }
+
+        //просчитывание готовности текущей игры
         public double readiness_ofProject()
         {
             return currentGame.getReadiness();
