@@ -1,0 +1,9 @@
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe.config
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csprojResolveAssemblyReference.cache
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.Properties.Resources.resources
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csproj.GenerateResource.Cache
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.pdb
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.exe
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.pdb
+E:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_Enterprise.resources
