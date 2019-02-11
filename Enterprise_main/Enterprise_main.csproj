@@ -49,6 +49,7 @@
     <Compile Include="Crew\Designer.cs" />
     <Compile Include="Crew\ScreenWriter.cs" />
     <Compile Include="Crew\SoundDesigner.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="Director.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

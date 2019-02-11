@@ -13,10 +13,12 @@ namespace Enterprise_main
     public partial class form_Enterprise : Form
     {
         Director director1;
+        Customer customer1;
         int days = 1;
         Game currentGame;
         List<Human> crew;
         List<Manager> managers;
+        DataTable dt;
         public form_Enterprise()
         {
             InitializeComponent();
@@ -24,6 +26,12 @@ namespace Enterprise_main
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dt = new DataTable();
+            dt.Columns.Add("Position");
+            dt.Columns.Add("Code Skill");
+            dt.Columns.Add("Design Skill");
+            dt.Columns.Add("Performance");
+            dt.Columns.Add("Fatigue");
 
         }
 
@@ -31,6 +39,7 @@ namespace Enterprise_main
         {
             //Создаем директора предприятия
             director1 = new Director(txt_nameofFirm.Text, Int32.Parse(txt_startBudget.Text));
+            customer1 = new Customer(20000);
             //Выводим данные о бюджете и названии предприятия
             txt_Budget.Text = director1.returnBudget().ToString();
             txt_currName.Text = director1.returnName().ToString();
@@ -44,11 +53,15 @@ namespace Enterprise_main
             run_of_time.Enabled = true;
             //Добавляем программиста в команду
             crew.Add(new Programmer(50, 10));
+            dt.Rows.Add("Programmer", 50, 10, crew[0].getPerformance(), crew[0].getFatigue());
             crew.Add(new Designer(50));
+            dt.Rows.Add("Designer", 0, 50, crew[1].getPerformance(), crew[1].getFatigue());
             crew.Add(new ScreenWriter(50));
+            dt.Rows.Add("Screenwriter", 0, 50, crew[2].getPerformance(), crew[2].getFatigue());
             crew.Add(new SoundDesigner(50));
+            dt.Rows.Add("SoundDesigner", 0, 50, crew[3].getPerformance(), crew[3].getFatigue());
             managers.Add(new Manager(50));
-
+            crewTable.DataSource = dt;
         }
 
         private void run_of_time_Tick(object sender, EventArgs e)
@@ -64,12 +77,16 @@ namespace Enterprise_main
                 //Создаем проект
                 director1.startProject("Horror", "Medium", "AAAAAAAA");
                 currentGame = director1.getGame();
+                currentGame.setRested(crew.Count / 3);
                 director1.hasProject = true;
-            } else
+            }
+            else
             {
                 //Если проект есть, выводим данные о его готовности
                 txt_currReadiness.Text = director1.readiness_ofProject().ToString();
             }
+
+
             foreach(Manager man in managers)
             {
                 if (days % 30 == 0)
@@ -84,11 +101,24 @@ namespace Enterprise_main
             {   
                 if (days % 30 == 0)
                 {
+                    //Изменяем предпочтения игроков
+                    customer1.ChangePreferences();
                     //Выплачиваем зарплату в нужный срок
                     director1.setBudget(director1.returnBudget() - buddy.GetPaid());
                 }
+
+                crewTable.Rows[crew.IndexOf(buddy)].Cells[3].Value = buddy.getPerformance();
+                crewTable.Rows[crew.IndexOf(buddy)].Cells[4].Value = buddy.getFatigue();
                 //Отправляем работать
                 buddy.ToWork(currentGame);
+            }
+
+            if (currentGame.getReadiness()==100 && currentGame.Bugs() == 0)
+            {
+                //Высчитываем желательную цену продажи, продаем и пополняем бюджет
+                int our_price = director1.SellGame(customer1.getPopulation());
+                int sellment =  customer1.BuyGame(currentGame,our_price);
+                director1.setBudget(director1.returnBudget() + sellment);
             }
         }
     }

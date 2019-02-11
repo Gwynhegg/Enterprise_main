@@ -37,7 +37,7 @@ namespace Enterprise_main
             if (tired)
             //Если устал, то в отпуск
             {
-                GetRest();
+                GetRest(game);
             }
             else
             {
@@ -48,22 +48,67 @@ namespace Enterprise_main
                     self_fatigue += 2;
                     game.set_sound_difficulty(soundDifficulty);
                 }
+                else
+                {
+                    if (game.get_plot_difficulty() > 0)
+                    {
+                        int plotDifficulty = game.get_plot_difficulty();
+                        plotDifficulty -= (int)((designSkill / 2) * (self_performance + additional_performance));
+                        self_fatigue += 2;
+                        game.set_plot_difficulty(plotDifficulty);
+                    }
+                    else
+                    {
+                        if (game.get_design_difficulty() > 0)
+                        {
+                            int designDifficulty = game.get_design_difficulty();
+                            designDifficulty -= (int)((designSkill / 2) * (self_performance + additional_performance));
+                            self_fatigue += 2;
+                            game.set_design_difficulty(designDifficulty);
+                        }
+                    }
+                }
             }
             if (self_fatigue >= 100)
-            {
-                tired = true;
+            {                //Если возможное количество одновременно отдыхающих не исчерпано, то...
+
+                if (game.getRested() > 0)
+                {
+                    tired = true;
+                    game.setRested(game.getRested() - 1);
+                }
+                else
+                {                    //Если же возможности для отдыха нет, понижаем производительность
+
+                    if (self_performance > 0.05)
+                    {
+                        self_performance -= 0.05;
+                    }
+                }
             }
         }
 
-        public override void GetRest()
+        public override void GetRest(Game game)
         {
             //Каждый день усталость спадает, пока не опустится до нуля
             self_fatigue -= 5;
             if (self_fatigue <= 0)
             {
+                game.setRested(game.getRested() + 1);
+                self_performance = 0.5;
                 self_fatigue = 0;
                 tired = false;
             }
+        }
+
+        public override int getFatigue()
+        {
+            return self_fatigue;
+        }
+
+        public override double getPerformance()
+        {
+            return self_performance;
         }
 
     }

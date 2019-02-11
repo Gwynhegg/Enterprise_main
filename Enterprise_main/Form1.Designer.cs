@@ -37,6 +37,8 @@
             this.run_of_time = new System.Windows.Forms.Timer(this.components);
             this.txt_currReadiness = new System.Windows.Forms.Label();
             this.txt_currentData = new System.Windows.Forms.Label();
+            this.crewTable = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.crewTable)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_createFirm
@@ -89,7 +91,7 @@
             // txt_currReadiness
             // 
             this.txt_currReadiness.AutoSize = true;
-            this.txt_currReadiness.Location = new System.Drawing.Point(221, 51);
+            this.txt_currReadiness.Location = new System.Drawing.Point(467, 81);
             this.txt_currReadiness.Name = "txt_currReadiness";
             this.txt_currReadiness.Size = new System.Drawing.Size(35, 13);
             this.txt_currReadiness.TabIndex = 5;
@@ -104,11 +106,20 @@
             this.txt_currentData.TabIndex = 6;
             this.txt_currentData.Text = "label1";
             // 
+            // crewTable
+            // 
+            this.crewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.crewTable.Location = new System.Drawing.Point(15, 108);
+            this.crewTable.Name = "crewTable";
+            this.crewTable.Size = new System.Drawing.Size(531, 200);
+            this.crewTable.TabIndex = 7;
+            // 
             // form_Enterprise
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 320);
+            this.Controls.Add(this.crewTable);
             this.Controls.Add(this.txt_currentData);
             this.Controls.Add(this.txt_currReadiness);
             this.Controls.Add(this.txt_currName);
@@ -119,6 +130,7 @@
             this.Name = "form_Enterprise";
             this.Text = "Enterprise";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.crewTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,6 +146,7 @@
         private System.Windows.Forms.Timer run_of_time;
         private System.Windows.Forms.Label txt_currReadiness;
         private System.Windows.Forms.Label txt_currentData;
+        private System.Windows.Forms.DataGridView crewTable;
     }
 }
 

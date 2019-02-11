@@ -10,8 +10,9 @@ namespace Enterprise_main
     {
         private string genre, title, size;
         private int soundDifficulty, designDifficulty, codeDifficulty, plotDifficulty;
-        public int numOfBugs;
+        private int numOfBugs;
         private double sumDifficulty, startDifficulty;
+        private int numOfRested;
 
         //конструктор класса, определяющий жанр, размер и название игры
         public Game(string genre,string size,string title)
@@ -20,7 +21,31 @@ namespace Enterprise_main
             this.size = size;
             this.title = title;
         }
+        public void setRested(int rest)
+        {
+            numOfRested = rest;
+        }
 
+        public int getRested()
+        {
+            return numOfRested;
+        }
+        //Создание бага
+        public void CreateBug()
+        {
+            numOfBugs++;
+        }
+
+        //Дебаггинг
+        public void Debug()
+        {
+            numOfBugs--;
+        }
+
+        public int Bugs()
+        {
+            return numOfBugs;
+        }
         //геттер и сеттер для сложности кода игры (работа программиста)
         public int get_code_difficulty()
         {
@@ -61,6 +86,10 @@ namespace Enterprise_main
             this.plotDifficulty = changed_difficulty;
         }
 
+        public string getGenre()
+        {
+            return genre;
+        }
         //просчитывание сложности проекта
         public void getDifficulty()
         {
@@ -98,6 +127,11 @@ namespace Enterprise_main
             //Суммируем сложность
             sumDifficulty = soundDifficulty + designDifficulty + codeDifficulty + plotDifficulty;
             startDifficulty = sumDifficulty;
+        }
+
+        public double getStartDifficulty()
+        {
+            return startDifficulty;
         }
         //Метод для вычисления готовности
         public double getReadiness()

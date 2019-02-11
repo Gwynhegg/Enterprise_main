@@ -17,3 +17,13 @@ D:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.
 D:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe.config
 D:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe
 D:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.pdb
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe.config
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.exe
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\bin\Debug\Enterprise_main.pdb
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csprojAssemblyReference.cache
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_Enterprise.resources
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.Properties.Resources.resources
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csproj.GenerateResource.cache
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csproj.CoreCompileInputs.cache
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.exe
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.pdb

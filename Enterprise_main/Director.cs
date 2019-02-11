@@ -10,7 +10,7 @@ namespace Enterprise_main
     {
         public Game currentGame;
         private string nameofFirm;
-        private int budget;
+        private int budget,start_budget;
         public bool hasProject = false;
 
         //Конструктор класса, определяющий имя фирмы и начальный бюджет
@@ -45,6 +45,7 @@ namespace Enterprise_main
             currentGame = new Game(genre,size,title);
             //Просчитывание сложности игры
             currentGame.getDifficulty();
+            start_budget = budget;
         }
         //геттер текущей игры
         public Game getGame()
@@ -52,6 +53,13 @@ namespace Enterprise_main
             return currentGame;
         }
 
+        public int SellGame(int population)
+        {
+            hasProject = false;
+            int costs = start_budget - budget;
+            int price = (population / 2) / costs;
+            return price;
+        }
         //просчитывание готовности текущей игры
         public double readiness_ofProject()
         {

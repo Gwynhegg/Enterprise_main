@@ -13,6 +13,7 @@ namespace Enterprise_main
         int self_fatigue, salary;
         double self_performance = 0.5,additional_performance=0;
         bool tired;
+        Random rnd = new Random();
         //Конструктор класса, описывающий дизайнерские и кодерские навыки программиста, а также его зарплату
         public Programmer(int codeSkill, int designSkill)
         {
@@ -38,7 +39,7 @@ namespace Enterprise_main
             if (tired)
             //Если устал, то в отпуск
             {
-                GetRest();
+                GetRest(game);
             }
             else
             {
@@ -50,6 +51,8 @@ namespace Enterprise_main
                     codeDifficulty -= (int)(codeSkill * (self_performance+additional_performance));
                     self_fatigue += 2;
                     game.set_code_difficulty(codeDifficulty);
+                    //Упс...создание бага
+                    if (rnd.Next(5) == 1) game.CreateBug();
                 }
                 else
                 {
@@ -85,17 +88,45 @@ namespace Enterprise_main
             //Если усталость достигает пика, то...                  
             if (self_fatigue >= 100)
             {
-                tired = true;
+                //Если возможное количество одновременно отдыхающих не исчерпано, то...
+                if (game.getRested() > 0)
+                {
+                    tired = true;
+                    game.setRested(game.getRested() - 1);
+                } else
+                {
+                    //Если же возможности для отдыха нет, понижаем производительность
+                   if (self_performance >0.05) {
+                        self_performance -= 0.05;
+                    }
+                }
+            }
+
+            if (game.getReadiness() == 100)
+            {
+                game.Debug();
             }
         }
-        public override void GetRest()
+        public override void GetRest(Game game)
         {
             //Каждый день усталость спадает, пока не опустится до нуля
             self_fatigue -= 5;
             if (self_fatigue <= 0) {
+                game.setRested(game.getRested() + 1);
+                self_performance = 0.5;
                 self_fatigue = 0;
                 tired = false;
             }
+        }
+
+        public override int getFatigue()
+        {
+            return self_fatigue;
+        }
+
+        public override double getPerformance()
+        {
+            return self_performance;
         }
     }
 
