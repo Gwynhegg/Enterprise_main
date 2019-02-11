@@ -15,6 +15,8 @@ namespace Enterprise_main
         public abstract void set_AddPerformance(double performance);
         public abstract double getPerformance();
         public abstract int getFatigue();
+        public abstract int getDesignskill();
+        public abstract int getCodeskill();
     }
 
    

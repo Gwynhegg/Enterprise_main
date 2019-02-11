@@ -115,11 +115,46 @@ namespace Enterprise_main
 
             if (currentGame.getReadiness()==100 && currentGame.Bugs() == 0)
             {
-                //Высчитываем желательную цену продажи, продаем и пополняем бюджет
+                //Высчитываем желательную цену продажи, оценку критиков, продаем и пополняем бюджет
+                double rating = getAverage();
                 int our_price = director1.SellGame(customer1.getPopulation());
-                int sellment =  customer1.BuyGame(currentGame,our_price);
+                int sellment =  customer1.BuyGame(currentGame,our_price,rating);
                 director1.setBudget(director1.returnBudget() + sellment);
             }
+        }
+        //Функция, которая высчитывает средние характеристики специалистов и на их основе строит качество сделанной работы
+        private double getAverage()
+        {
+            int design_quality=0, numOfDesigners=0;
+            int optimization=0, numOfProgrammers=0;
+            int sound_quality=0, numOfSounds=0;
+            int plot_quality=0, numOfWriters=0;
+            foreach(Human buddy in crew)
+            {
+                if (buddy is Programmer)
+                {
+                    numOfProgrammers++;
+                    optimization += buddy.getCodeskill();
+                } else if(buddy is ScreenWriter)
+                {
+                    numOfWriters++;
+                    plot_quality += buddy.getDesignskill();
+                } else if(buddy is Designer)
+                {
+                    numOfDesigners++;
+                    design_quality += buddy.getDesignskill();
+                } else
+                {
+                    numOfSounds++;
+                    sound_quality += buddy.getDesignskill();
+                }
+            }
+            double average = 0;
+            if (numOfProgrammers > 0) average += optimization / numOfProgrammers;
+            if (numOfDesigners > 0) average += design_quality / numOfDesigners;
+            if (numOfSounds > 0) average += sound_quality / numOfSounds;
+            if (numOfWriters > 0) average += plot_quality / numOfWriters;
+            return average / 4 / 100;
         }
     }
 }

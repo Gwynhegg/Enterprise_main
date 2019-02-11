@@ -109,8 +109,17 @@ namespace Enterprise_main
 
         public override double getPerformance()
         {
-            return self_performance;
+            return self_performance+additional_performance;
         }
 
+        public override int getDesignskill()
+        {
+            return designSkill;
+        }
+
+        public override int getCodeskill()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
