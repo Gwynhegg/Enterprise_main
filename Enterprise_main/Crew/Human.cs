@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 namespace Enterprise_main
 {
     //Абстрактный класс
-    public abstract class Human
+    public interface Human
     {
-        public abstract void ToWork(Game game);
-        public abstract void GetRest(Game game);
-        public abstract int GetPaid();
-        public abstract void set_AddPerformance(double performance);
-        public abstract double getPerformance();
-        public abstract int getFatigue();
-        public abstract int getDesignskill();
-        public abstract int getCodeskill();
+          void ToWork(Game game);
+          void GetRest(Game game);
+          int GetPaid();
+          void set_AddPerformance(double performance);
+          double getPerformance();
+          int getFatigue();
+          int getDesignskill();
+          int getCodeskill();
     }
 
-   
 }

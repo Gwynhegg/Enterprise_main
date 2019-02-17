@@ -20,18 +20,18 @@ namespace Enterprise_main
             self_fatigue = 0;
         }
 
-        public override void set_AddPerformance(double performance)
+        public  void set_AddPerformance(double performance)
         {
             this.additional_performance = performance;
         }
 
         //Поступление платы звук. дизайнеру
-        public override int GetPaid()
+        public  int GetPaid()
         {
             return salary;
         }
 
-        public override void ToWork(Game game)
+        public  void ToWork(Game game)
         {
             //Если работа звук. дизайнера не закончена и звук. дизайнер не в отпуске, то...
             if (tired)
@@ -80,15 +80,15 @@ namespace Enterprise_main
                 else
                 {                    //Если же возможности для отдыха нет, понижаем производительность
 
-                    if (self_performance > 0.05)
+                    if (self_performance > 0.02)
                     {
-                        self_performance -= 0.05;
+                        self_performance -= 0.02;
                     }
                 }
             }
         }
 
-        public override void GetRest(Game game)
+        public  void GetRest(Game game)
         {
             //Каждый день усталость спадает, пока не опустится до нуля
             self_fatigue -= 5;
@@ -101,24 +101,24 @@ namespace Enterprise_main
             }
         }
 
-        public override int getFatigue()
+        public  int getFatigue()
         {
             return self_fatigue;
         }
 
-        public override double getPerformance()
+        public  double getPerformance()
         {
             return self_performance + additional_performance;
         }
 
-        public override int getDesignskill()
+        public  int getDesignskill()
         {
             return designSkill;
         }
 
-        public override int getCodeskill()
+        public int getCodeskill()
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
