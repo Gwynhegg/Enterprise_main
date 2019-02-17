@@ -1,6 +1,6 @@
 ﻿namespace Enterprise_main
 {
-    partial class form_Enterprise
+     partial class form_Enterprise
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.currReadiness = new System.Windows.Forms.ProgressBar();
+            this.btn_HireCrew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.crewTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,11 +180,23 @@
             this.currReadiness.TabIndex = 14;
             this.currReadiness.Visible = false;
             // 
+            // btn_HireCrew
+            // 
+            this.btn_HireCrew.Location = new System.Drawing.Point(248, 50);
+            this.btn_HireCrew.Name = "btn_HireCrew";
+            this.btn_HireCrew.Size = new System.Drawing.Size(75, 23);
+            this.btn_HireCrew.TabIndex = 15;
+            this.btn_HireCrew.Text = "Нанять";
+            this.btn_HireCrew.UseVisualStyleBackColor = true;
+            this.btn_HireCrew.Visible = false;
+            this.btn_HireCrew.Click += new System.EventHandler(this.btn_HireCrew_Click);
+            // 
             // form_Enterprise
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 320);
+            this.Controls.Add(this.btn_HireCrew);
             this.Controls.Add(this.currReadiness);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -224,6 +237,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ProgressBar currReadiness;
+        private System.Windows.Forms.Button btn_HireCrew;
     }
 }
 

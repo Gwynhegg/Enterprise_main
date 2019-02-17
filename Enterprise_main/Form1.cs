@@ -14,7 +14,8 @@ namespace Enterprise_main
     {
         Director director1;
         Customer customer1;
-        int days = 1,finalBugs;
+        string genre, size, title;
+        int days = 0;
         bool FinalFlag = false;
         Game currentGame;
         List<Human> crew;
@@ -43,6 +44,7 @@ namespace Enterprise_main
             txt_nameofFirm.Visible = false;
             btn_createFirm.Visible = false;
             currReadiness.Visible = true;
+            btn_HireCrew.Visible = true;
             label1.Visible = true;
             label2.Visible = true;
             label3.Visible = true;
@@ -62,19 +64,8 @@ namespace Enterprise_main
             //Выводим течение дней и запускаем процесс
             txt_currentData.Text = days.ToString();
             run_of_time.Enabled = true;
-            //Добавляем программиста в команду
-            crew.Add(new Programmer(50, 10));
-            crew.Add(new Programmer(50, 10));
-            dt.Rows.Add("Programmer", 50, 10, crew[0].getPerformance(), crew[0].getFatigue());
-            dt.Rows.Add("Programmer", 50, 10, crew[0].getPerformance(), crew[1].getFatigue());
-            crew.Add(new Designer(50));
-            dt.Rows.Add("Designer", 0, 50, crew[1].getPerformance(), crew[2].getFatigue());
-            crew.Add(new ScreenWriter(50));
-            dt.Rows.Add("Screenwriter", 0, 50, crew[2].getPerformance(), crew[3].getFatigue());
-            crew.Add(new SoundDesigner(50));
-            dt.Rows.Add("SoundDesigner", 0, 50, crew[3].getPerformance(), crew[4].getFatigue());
-            managers.Add(new Manager(50));
             crewTable.DataSource = dt;
+            
         }
 
         private void run_of_time_Tick(object sender, EventArgs e)
@@ -87,11 +78,18 @@ namespace Enterprise_main
             //Если нет проекта, то..
             if (!director1.hasProject)
             {
+                run_of_time.Enabled = false;
+                GameCreation form1 = new GameCreation();
+                form1.ShowDialog();
+                if (form1.isDone)
+                {
+                    genre = form1.getGenre();
+                    size = form1.getSize();
+                    title = form1.getName();
+                }
+                run_of_time.Enabled = true;
                 //Создаем проект
                 FinalFlag = false;
-                string title = "Nightmares";
-                string size = "Medium";
-                string genre = "Horror";
                 director1.startProject(genre, size, title);
                 txt_CurrProject.Text = ("Title: " + title + "    Genre: " + genre + "    Size: " + size);
                 currentGame = director1.getGame();
@@ -118,18 +116,26 @@ namespace Enterprise_main
                     }
                 }
             }
-        
-           
-            foreach(Manager man in managers)
+        if (crew.Count()==0)
             {
-                if (days % 30 == 0)
-                {
-                    //Выплачиваем зарплату в нужный срок
-                    director1.setBudget(director1.returnBudget() - man.GetPaid());
-                }
-                //Менеджеры работают, повышая производительность остальных
-                man.GetWork(crew);
+                run_of_time.Enabled = false;
+                HireCrew();
             }
+            run_of_time.Enabled = true;
+        if (managers.Count != 0)
+            {
+                foreach (Manager man in managers)
+                {
+                    if (days % 30 == 0)
+                    {
+                        //Выплачиваем зарплату в нужный срок
+                        director1.setBudget(director1.returnBudget() - man.GetPaid());
+                    }
+                    //Менеджеры работают, повышая производительность остальных
+                    man.GetWork(crew);
+                }
+            }
+            
 
             if (days % 30 == 0)
             {
@@ -222,9 +228,46 @@ namespace Enterprise_main
             }
         }
 
+        private void btn_HireCrew_Click(object sender, EventArgs e)
+        {
+            run_of_time.Enabled = false;
+            HireCrew();
+            run_of_time.Enabled = true;
+        }
+
         private void txt_startBudget_MouseClick(object sender, MouseEventArgs e)
         {
             txt_startBudget.Text = "";
+        }
+
+        private void HireCrew()
+        {
+            newCrew form2 = new newCrew();
+            form2.ShowDialog();
+            if (form2.typeOf != "")
+            {
+                if (form2.typeOf == "Manager") managers.Add(form2.createManager());
+                if (form2.typeOf == "Coder")
+                {
+                    crew.Add(form2.createCoder());
+                    dt.Rows.Add("Programmer", crew[crew.Count - 1].getCodeskill(), crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                }
+                if (form2.typeOf == "Designer")
+                {
+                    crew.Add(form2.createDesigner());
+                    dt.Rows.Add("Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                }
+                if (form2.typeOf == "Writer")
+                {
+                    crew.Add(form2.createWriter());
+                    dt.Rows.Add("Screenwriter", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                    }
+                if (form2.typeOf == "Sound")
+                {
+                    crew.Add(form2.createSound());
+                    dt.Rows.Add("Sound Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                    }
+            }
         }
     }
 }
