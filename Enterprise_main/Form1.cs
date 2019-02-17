@@ -38,6 +38,7 @@ namespace Enterprise_main
 
         private void btn_createFirm_Click(object sender, EventArgs e)
         {
+            //Выводим все надписи, предназначенные для удобства
             txt_startBudget.Visible = false;
             txt_nameofFirm.Visible = false;
             btn_createFirm.Visible = false;
@@ -104,12 +105,15 @@ namespace Enterprise_main
                 currReadiness.Value = (int)director1.readiness_ofProject();
             } else
                 {
+                    //Если проект является завершенным, то...
                    if (!FinalFlag){
+                        //Переназначаем прогресс бар для демонстрации дебага
                         FinalFlag = true;
                         label4.Text = "Деббажим:";
                         currReadiness.Maximum = currentGame.Bugs();
                         currReadiness.Value = currReadiness.Maximum;
                     } else {
+                        //Выводим текущее количество багов
                         currReadiness.Value = currentGame.Bugs();
                     }
                 }
@@ -123,6 +127,7 @@ namespace Enterprise_main
                     //Выплачиваем зарплату в нужный срок
                     director1.setBudget(director1.returnBudget() - man.GetPaid());
                 }
+                //Менеджеры работают, повышая производительность остальных
                 man.GetWork(crew);
             }
 
@@ -195,6 +200,7 @@ namespace Enterprise_main
             return average / 4 / 100;
         }
 
+        //очищаем поля для вводов и вводим ограничения на ввод для бюджета
         private void txt_nameofFirm_MouseClick(object sender, MouseEventArgs e)
         {
             txt_nameofFirm.Text = "";
