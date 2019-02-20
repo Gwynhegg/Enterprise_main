@@ -18,9 +18,9 @@ namespace Enterprise_main
         int days = 0;
         bool FinalFlag = false;
         Game currentGame;
-        List<Human> crew;
+        List<Developer> crew;
         List<Manager> managers;
-        DataTable dt;
+        DataTable dt,dt1;
         public form_Enterprise()
         {
             InitializeComponent();
@@ -28,13 +28,19 @@ namespace Enterprise_main
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Создаем две таблицы - для менеджеров и разработчиков
             dt = new DataTable();
             dt.Columns.Add("Position");
             dt.Columns.Add("Code Skill");
             dt.Columns.Add("Design Skill");
             dt.Columns.Add("Performance");
             dt.Columns.Add("Fatigue");
-
+            dt.Columns.Add("FIRED!");
+            dt1 = new DataTable();
+            dt1.Columns.Add("Position");
+            dt1.Columns.Add("Manager Skill");
+            dt1.Columns.Add("Fatigue");
+            dt1.Columns.Add("FIRED!");
         }
 
         private void btn_createFirm_Click(object sender, EventArgs e)
@@ -59,13 +65,13 @@ namespace Enterprise_main
 
             //Создаем лист для команды разработчиков
             managers = new List<Manager>();
-            crew = new List<Human>();
+            crew = new List<Developer>();
 
             //Выводим течение дней и запускаем процесс
             txt_currentData.Text = days.ToString();
             run_of_time.Enabled = true;
             crewTable.DataSource = dt;
-            
+            managersTable.DataSource = dt1;
         }
 
         private void run_of_time_Tick(object sender, EventArgs e)
@@ -78,6 +84,7 @@ namespace Enterprise_main
             //Если нет проекта, то..
             if (!director1.hasProject)
             {
+                //Создаем проект
                 run_of_time.Enabled = false;
                 GameCreation form1 = new GameCreation();
                 form1.ShowDialog();
@@ -88,12 +95,11 @@ namespace Enterprise_main
                     title = form1.getName();
                 }
                 run_of_time.Enabled = true;
-                //Создаем проект
                 FinalFlag = false;
                 director1.startProject(genre, size, title);
                 txt_CurrProject.Text = ("Title: " + title + "    Genre: " + genre + "    Size: " + size);
                 currentGame = director1.getGame();
-                currentGame.setRested(crew.Count / 3);
+                currentGame.setRested(crew.Count / 3 + 1);
                 director1.hasProject = true;
             }
             else
@@ -118,6 +124,7 @@ namespace Enterprise_main
             }
         if (crew.Count()==0)
             {
+                //Если разработчиков нет, но нанимаем их
                 run_of_time.Enabled = false;
                 HireCrew();
             }
@@ -126,13 +133,15 @@ namespace Enterprise_main
             {
                 foreach (Manager man in managers)
                 {
+                    //Выводим усталость менеджеров
+                    managersTable.Rows[managers.IndexOf(man)].Cells[2].Value = man.getFatigue();
                     if (days % 30 == 0)
                     {
                         //Выплачиваем зарплату в нужный срок
                         director1.setBudget(director1.returnBudget() - man.GetPaid());
                     }
                     //Менеджеры работают, повышая производительность остальных
-                    man.GetWork(crew);
+                    man.ToWork(crew);
                 }
             }
             
@@ -144,7 +153,7 @@ namespace Enterprise_main
             }
 
             //Для каждого члена команды
-            foreach (Human buddy in crew)
+            foreach (Developer buddy in crew)
             {   
                 if (days % 30 == 0)
                 {
@@ -153,6 +162,7 @@ namespace Enterprise_main
                     director1.setBudget(director1.returnBudget() - buddy.GetPaid());
                 }
 
+                //Выводим производительность и усталость
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[3].Value = buddy.getPerformance();
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[4].Value = buddy.getFatigue();
                 //Отправляем работать
@@ -178,7 +188,7 @@ namespace Enterprise_main
             int sound_quality=0, numOfSounds=0;
             int plot_quality=0, numOfWriters=0;
 
-            foreach(Human buddy in crew)
+            foreach(Developer buddy in crew)
             {
                 if (buddy is Programmer)
                 {
@@ -213,7 +223,7 @@ namespace Enterprise_main
         }
 
         private void txt_startBudget_TextChanged(object sender, EventArgs e)
-        {
+        { //"Защита от дурака"
             try
             {
           int  a = Int32.Parse(txt_startBudget.Text);
@@ -228,6 +238,40 @@ namespace Enterprise_main
             }
         }
 
+        //При нажатии на ячейку DISMISS выводим окно Да/Нет и уувольняем менеджера при подтверждении
+        private void managersTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (managersTable.CurrentCell.Value.ToString() == "DISMISS?")
+            {
+                run_of_time.Enabled = false;
+                DialogResult result = MessageBox.Show("Вы точно хотите уволить сотрудника?", "ATTENTION", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    managers[managersTable.CurrentCell.RowIndex].Dismissed(crew);
+                    managers.RemoveAt(managersTable.CurrentCell.RowIndex);
+                    dt1.Rows.Remove(dt1.Rows[managersTable.CurrentCell.RowIndex]);
+                }
+                run_of_time.Enabled = true;
+            }
+        }
+
+        //При нажатии на ячейку DISMISS выводим окно Да/Нет и уувольняем сотрудника при подтверждении
+        private void crewTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (crewTable.CurrentCell.Value.ToString() == "DISMISS?")
+            {
+                run_of_time.Enabled = false;
+                DialogResult result = MessageBox.Show("Вы точно хотите уволить сотрудника?", "ATTENTION", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    crew.RemoveAt(crewTable.CurrentCell.RowIndex);
+                    dt.Rows.Remove(dt.Rows[crewTable.CurrentCell.RowIndex]);
+                }
+                run_of_time.Enabled = true;
+            }
+        }
+
+        //Нажатие на кнопку Нанять
         private void btn_HireCrew_Click(object sender, EventArgs e)
         {
             run_of_time.Enabled = false;
@@ -242,32 +286,42 @@ namespace Enterprise_main
 
         private void HireCrew()
         {
+            //Выводим форму для нанимания сотрудников и нанимаем сотрудника указанного типа с указанными характеристиками
             newCrew form2 = new newCrew();
             form2.ShowDialog();
             if (form2.typeOf != "")
             {
-                if (form2.typeOf == "Manager") managers.Add(form2.createManager());
+                if (form2.typeOf == "Manager") {
+                    managers.Add(form2.createManager());
+                    dt1.Rows.Add("Manager", managers.Last().getManagerSkill(), managers.Last().getFatigue(),"DISMISS?");
+                    managersTable.Rows[dt1.Rows.Count - 1].Cells[3].Style.BackColor = Color.Red;
+                }
                 if (form2.typeOf == "Coder")
                 {
                     crew.Add(form2.createCoder());
-                    dt.Rows.Add("Programmer", crew[crew.Count - 1].getCodeskill(), crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                    dt.Rows.Add("Programmer", crew[crew.Count - 1].getCodeskill(), crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(),"DISMISS?");
+                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
                 }
                 if (form2.typeOf == "Designer")
                 {
                     crew.Add(form2.createDesigner());
-                    dt.Rows.Add("Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
+                    dt.Rows.Add("Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
+                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
                 }
                 if (form2.typeOf == "Writer")
                 {
                     crew.Add(form2.createWriter());
-                    dt.Rows.Add("Screenwriter", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
-                    }
+                    dt.Rows.Add("Screenwriter", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
+                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
+                }
                 if (form2.typeOf == "Sound")
                 {
                     crew.Add(form2.createSound());
-                    dt.Rows.Add("Sound Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue());
-                    }
+                    dt.Rows.Add("Sound Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
+                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
+                }
             }
+            currentGame.setRested(crew.Count / 3 + 1);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Enterprise_main
 {
     //Класс, опиcывающий программиста, который может в дизайн!!!
-    public class Programmer : Human
+    public class Programmer : Developer
     {
         private int codeSkill, designSkill;
         int self_fatigue, salary;
@@ -19,21 +19,21 @@ namespace Enterprise_main
         {
             this.codeSkill = codeSkill;
             this.designSkill = designSkill;
-            salary = codeSkill + designSkill;
+            salary = (codeSkill + designSkill) * 10;
             self_fatigue = 0;
         }
 
-        public  void set_AddPerformance(double performance)
+        public  override void set_AddPerformance(double performance)
         {
             this.additional_performance = performance;
         }
         //Поступление платы программисту
-        public  int GetPaid()
+        public override int GetPaid()
         {
             return salary;
         }
         //Программист работает...
-        public  void ToWork(Game game)
+        public override void ToWork(Game game)
         {
             //Если работа с кодом не закончена и программист не в отпуске, то...
             if (tired)
@@ -96,9 +96,9 @@ namespace Enterprise_main
                 } else
                 {
                     //Если же возможности для отдыха нет, понижаем производительность
-                    if (self_performance > 0.02)
+                    if (self_performance > 0.01)
                     {
-                        self_performance -= 0.02;
+                        self_performance -= 0.01;
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace Enterprise_main
                 game.Debug();
             }
         }
-        public  void GetRest(Game game)
+        public override void GetRest(Game game)
         {
             //Каждый день усталость спадает, пока не опустится до нуля
             self_fatigue -= 5;
@@ -120,22 +120,22 @@ namespace Enterprise_main
             }
         }
 
-        public  int getFatigue()
+        public override int getFatigue()
         {
             return self_fatigue;
         }
 
-        public  double getPerformance()
+        public override double getPerformance()
         {
             return self_performance + additional_performance;
         }
 
-        public  int getCodeskill()
+        public override int getCodeskill()
         {
             return codeSkill;
         }
 
-        public  int getDesignskill()
+        public override int getDesignskill()
         {
             return designSkill;
         }

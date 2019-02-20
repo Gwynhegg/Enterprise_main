@@ -92,6 +92,7 @@ namespace Enterprise_main
 
         private void Hire_Click(object sender, EventArgs e)
         {
+            //Указываем тип сотрудника для передачи на главную форму
             switch (Crew.Text){
                 case "Менеджера": typeOf = "Manager";break;
                 case "Программиста": typeOf = "Coder";break;
@@ -102,6 +103,8 @@ namespace Enterprise_main
             this.Close();
 
         }
+
+        //Создаем сотруждника указанного типа
         public ScreenWriter createWriter()
         {
             return new ScreenWriter(Int32.Parse(Variants.Rows[1].Cells[num].Value.ToString()));

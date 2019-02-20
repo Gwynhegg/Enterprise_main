@@ -45,7 +45,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.currReadiness = new System.Windows.Forms.ProgressBar();
             this.btn_HireCrew = new System.Windows.Forms.Button();
+            this.managersTable = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.crewTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.managersTable)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_createFirm
@@ -108,11 +110,14 @@
             // 
             // crewTable
             // 
+            this.crewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.crewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.crewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.crewTable.Location = new System.Drawing.Point(15, 108);
+            this.crewTable.Location = new System.Drawing.Point(12, 201);
             this.crewTable.Name = "crewTable";
-            this.crewTable.Size = new System.Drawing.Size(531, 200);
+            this.crewTable.Size = new System.Drawing.Size(613, 176);
             this.crewTable.TabIndex = 7;
+            this.crewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.crewTable_CellClick);
             // 
             // label1
             // 
@@ -155,7 +160,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(443, 60);
+            this.label4.Location = new System.Drawing.Point(546, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 12;
@@ -174,7 +179,7 @@
             // 
             // currReadiness
             // 
-            this.currReadiness.Location = new System.Drawing.Point(446, 79);
+            this.currReadiness.Location = new System.Drawing.Point(514, 74);
             this.currReadiness.Name = "currReadiness";
             this.currReadiness.Size = new System.Drawing.Size(100, 23);
             this.currReadiness.TabIndex = 14;
@@ -182,7 +187,7 @@
             // 
             // btn_HireCrew
             // 
-            this.btn_HireCrew.Location = new System.Drawing.Point(248, 50);
+            this.btn_HireCrew.Location = new System.Drawing.Point(433, 74);
             this.btn_HireCrew.Name = "btn_HireCrew";
             this.btn_HireCrew.Size = new System.Drawing.Size(75, 23);
             this.btn_HireCrew.TabIndex = 15;
@@ -191,11 +196,23 @@
             this.btn_HireCrew.Visible = false;
             this.btn_HireCrew.Click += new System.EventHandler(this.btn_HireCrew_Click);
             // 
+            // managersTable
+            // 
+            this.managersTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.managersTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.managersTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.managersTable.Location = new System.Drawing.Point(15, 112);
+            this.managersTable.Name = "managersTable";
+            this.managersTable.Size = new System.Drawing.Size(610, 83);
+            this.managersTable.TabIndex = 16;
+            this.managersTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.managersTable_CellClick);
+            // 
             // form_Enterprise
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 320);
+            this.ClientSize = new System.Drawing.Size(640, 389);
+            this.Controls.Add(this.managersTable);
             this.Controls.Add(this.btn_HireCrew);
             this.Controls.Add(this.currReadiness);
             this.Controls.Add(this.label5);
@@ -215,6 +232,7 @@
             this.Text = "Enterprise";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.crewTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.managersTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,6 +256,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ProgressBar currReadiness;
         private System.Windows.Forms.Button btn_HireCrew;
+        private System.Windows.Forms.DataGridView managersTable;
     }
 }
 

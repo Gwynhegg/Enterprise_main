@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Enterprise_main
 {
-    public class SoundDesigner : Human
+    public class SoundDesigner : Developer
     {
         private int designSkill;
         int self_fatigue, salary;
@@ -16,22 +16,22 @@ namespace Enterprise_main
         public SoundDesigner(int designSkill)
         {
             this.designSkill = designSkill;
-            salary = designSkill;
+            salary = designSkill*10;
             self_fatigue = 0;
         }
 
-        public  void set_AddPerformance(double performance)
+        public override void set_AddPerformance(double performance)
         {
             this.additional_performance = performance;
         }
 
         //Поступление платы звук. дизайнеру
-        public  int GetPaid()
+        public override int GetPaid()
         {
             return salary;
         }
 
-        public  void ToWork(Game game)
+        public override void ToWork(Game game)
         {
             //Если работа звук. дизайнера не закончена и звук. дизайнер не в отпуске, то...
             if (tired)
@@ -80,15 +80,15 @@ namespace Enterprise_main
                 else
                 {                    //Если же возможности для отдыха нет, понижаем производительность
 
-                    if (self_performance > 0.02)
+                    if (self_performance > 0.01)
                     {
-                        self_performance -= 0.02;
+                        self_performance -= 0.01;
                     }
                 }
             }
         }
 
-        public  void GetRest(Game game)
+        public override void GetRest(Game game)
         {
             //Каждый день усталость спадает, пока не опустится до нуля
             self_fatigue -= 5;
@@ -101,22 +101,22 @@ namespace Enterprise_main
             }
         }
 
-        public  int getFatigue()
+        public override int getFatigue()
         {
             return self_fatigue;
         }
 
-        public  double getPerformance()
+        public override double getPerformance()
         {
             return self_performance + additional_performance;
         }
 
-        public  int getDesignskill()
+        public override int getDesignskill()
         {
             return designSkill;
         }
 
-        public int getCodeskill()
+        public override int getCodeskill()
         {
             return 0;
         }
