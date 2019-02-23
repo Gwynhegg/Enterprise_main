@@ -57,8 +57,8 @@ namespace Enterprise_main
         {
             hasProject = false;
             int costs = start_budget - budget;
-            int price = (population / 2) / costs;
-            return price;
+            int price = costs/(population / 2);
+            return price+1;
         }
         //просчитывание готовности текущей игры
         public double readiness_ofProject()

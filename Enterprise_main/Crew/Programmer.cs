@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Enterprise_main
 {
     //Класс, опиcывающий программиста, который может в дизайн!!!
-    public class Programmer : Developer
+    public class Programmer : Coder
     {
         private int codeSkill, designSkill;
         int self_fatigue, salary;
@@ -46,45 +46,29 @@ namespace Enterprise_main
 
                 if (game.get_code_difficulty() > 0)
                 {
-                    int codeDifficulty = game.get_code_difficulty();
                     //Программист вносит лепту в его завершение и понемногу устает...
-                    codeDifficulty -= (int)(codeSkill * (self_performance+additional_performance));
+                    this.doCode(game, codeSkill, self_performance, additional_performance);
                     self_fatigue += 2;
-                    game.set_code_difficulty(codeDifficulty);
                     //Упс...создание бага
                     if (rnd.Next(5) == 1) game.CreateBug();
                 }
-                else
+                else if (game.get_design_difficulty() > 0)
                 {
-                    if (game.get_design_difficulty() > 0)
-                    {
-                        int designDifficulty = game.get_design_difficulty();
-                        designDifficulty -= (int)(designSkill * self_performance);
-                        self_fatigue += 2;
-                        game.set_design_difficulty(designDifficulty);
-                    }
-                    else
-                    {
-                        if (game.get_sound_difficulty() > 0)
-                        {
-                            int soundDifficulty = game.get_sound_difficulty();
-                            soundDifficulty -= (int)(designSkill * self_performance);
-                            self_fatigue += 2;
-                            game.set_sound_difficulty(soundDifficulty);
-                        }
-                        else
-                        {
-                            if (game.get_plot_difficulty() > 0)
-                            {
-                                int plotDifficulty = game.get_plot_difficulty();
-                                plotDifficulty -= (int)(designSkill * self_performance);
-                                self_fatigue += 2;
-                                game.set_plot_difficulty(plotDifficulty);
-                            }
-                        }
-                    }
+                    this.doDesign(game, designSkill, self_performance, additional_performance);
+                    self_fatigue += 2;
+                }
+                else if (game.get_sound_difficulty() > 0)
+                {
+                    this.doSound(game, designSkill, self_performance, additional_performance);
+                    self_fatigue += 2;
+                }
+                else if (game.get_plot_difficulty() > 0)
+                {
+                    this.doPlot(game, designSkill, self_performance, additional_performance);
+                    self_fatigue += 2;
                 }
             }
+
             //Если усталость достигает пика, то...                  
             if (self_fatigue >= 100)
             {

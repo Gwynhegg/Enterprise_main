@@ -41,34 +41,23 @@ namespace Enterprise_main
             }
             else
             {
-                int soundDifficulty = game.get_sound_difficulty();
-                if (soundDifficulty > 0)
+                if (game.get_sound_difficulty() > 0)
                 {
-                    soundDifficulty -= (int)(designSkill * (self_performance+additional_performance));
+                    this.doSound(game, designSkill, self_performance, additional_performance);
                     self_fatigue += 2;
-                    game.set_sound_difficulty(soundDifficulty);
                 }
-                else
+                else if (game.get_plot_difficulty() > 0)
                 {
-                    if (game.get_plot_difficulty() > 0)
-                    {
-                        int plotDifficulty = game.get_plot_difficulty();
-                        plotDifficulty -= (int)((designSkill / 2) * (self_performance + additional_performance));
-                        self_fatigue += 2;
-                        game.set_plot_difficulty(plotDifficulty);
-                    }
-                    else
-                    {
-                        if (game.get_design_difficulty() > 0)
-                        {
-                            int designDifficulty = game.get_design_difficulty();
-                            designDifficulty -= (int)((designSkill / 2) * (self_performance + additional_performance));
-                            self_fatigue += 2;
-                            game.set_design_difficulty(designDifficulty);
-                        }
-                    }
+                    this.doPlot(game, designSkill/2, self_performance, additional_performance);
+                    self_fatigue += 2;
+                }
+                else if (game.get_design_difficulty() > 0)
+                {
+                    this.doDesign(game, designSkill, self_performance, additional_performance);
+                    self_fatigue += 2;
                 }
             }
+                
             if (self_fatigue >= 100)
             {                //Если возможное количество одновременно отдыхающих не исчерпано, то...
 

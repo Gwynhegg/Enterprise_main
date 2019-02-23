@@ -287,41 +287,38 @@ namespace Enterprise_main
         private void HireCrew()
         {
             //Выводим форму для нанимания сотрудников и нанимаем сотрудника указанного типа с указанными характеристиками
-            newCrew form2 = new newCrew();
-            form2.ShowDialog();
-            if (form2.typeOf != "")
+             newCrew form2 = new newCrew();
+             form2.ShowDialog();
+            switch (form2.getType())
             {
-                if (form2.typeOf == "Manager") {
+                case "Manager":
                     managers.Add(form2.createManager());
-                    dt1.Rows.Add("Manager", managers.Last().getManagerSkill(), managers.Last().getFatigue(),"DISMISS?");
+                    dt1.Rows.Add("Manager", managers.Last().getManagerSkill(), managers.Last().getFatigue(), "DISMISS?");
                     managersTable.Rows[dt1.Rows.Count - 1].Cells[3].Style.BackColor = Color.Red;
-                }
-                if (form2.typeOf == "Coder")
-                {
-                    crew.Add(form2.createCoder());
-                    dt.Rows.Add("Programmer", crew[crew.Count - 1].getCodeskill(), crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(),"DISMISS?");
-                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
-                }
-                if (form2.typeOf == "Designer")
-                {
+                    break;
+                case "Designer":
                     crew.Add(form2.createDesigner());
                     dt.Rows.Add("Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
                     crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
-                }
-                if (form2.typeOf == "Writer")
-                {
+                    break;
+                case "Programmer":
+                    crew.Add(form2.createCoder());
+                    dt.Rows.Add("Programmer", crew[crew.Count - 1].getCodeskill(), crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
+                    crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
+                    break;
+                case "ScreenWriter":
                     crew.Add(form2.createWriter());
                     dt.Rows.Add("Screenwriter", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
                     crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
-                }
-                if (form2.typeOf == "Sound")
-                {
+                    break;
+                case "SoundDesigner":
                     crew.Add(form2.createSound());
                     dt.Rows.Add("Sound Designer", 0, crew[crew.Count - 1].getDesignskill(), crew[crew.Count - 1].getPerformance(), crew[crew.Count - 1].getFatigue(), "DISMISS?");
                     crewTable.Rows[dt.Rows.Count - 1].Cells[5].Style.BackColor = Color.Red;
-                }
-            }
-            currentGame.setRested(crew.Count / 3 + 1);
+                    break;
+            }           
+             currentGame.setRested(crew.Count / 3 + 1);
+             
         }
     }
 }

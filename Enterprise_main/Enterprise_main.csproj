@@ -66,10 +66,10 @@
     <Compile Include="GameCreation.Designer.cs">
       <DependentUpon>GameCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="newCrew.cs">
+    <Compile Include="WorkerCreation\newCrew.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="newCrew.Designer.cs">
+    <Compile Include="WorkerCreation\newCrew.Designer.cs">
       <DependentUpon>newCrew.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -81,7 +81,7 @@
     <EmbeddedResource Include="GameCreation.resx">
       <DependentUpon>GameCreation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="newCrew.resx">
+    <EmbeddedResource Include="WorkerCreation\newCrew.resx">
       <DependentUpon>newCrew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
