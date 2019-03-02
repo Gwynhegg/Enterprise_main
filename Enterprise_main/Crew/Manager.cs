@@ -9,9 +9,10 @@ namespace Enterprise_main
     //Класс, описывающий работу менеджера
     public class Manager : Managers
     {
-        private int managerSkill,salary,self_fatigue;
-        private bool tired;
-
+        private int managerSkill,salary,self_fatigue,chance;
+        private bool tired,alreadyUp=false;
+        private double motivation;
+        Random rnd = new Random();
         public Manager(int skill)
         {
             this.managerSkill = skill;
@@ -28,16 +29,24 @@ namespace Enterprise_main
         public override void ToWork(List<Developer> buddy)
         {
             double temp = (double)managerSkill / 100;
-            double motivation = (temp / buddy.Count());
+            motivation = (temp / buddy.Count());
+
+            chance = rnd.Next(1, 25);
+            if (chance == 1) this.improveSkill(1);
             if (tired)
             {
                 //Если устал, то отправляем в отпуск
                 GetRest();
             } else
             { //Иначе увеличиваем производительность
-                foreach (Developer e in buddy)
+
+                if (!alreadyUp)
                 {
-                    e.set_AddPerformance(motivation);
+                    foreach (Developer e in buddy)
+                    {
+                        e.set_AddPerformance(e.getAddPerformance() + motivation);
+                        alreadyUp=true;
+                    }
                 }
             }
            //Если устал, то убираем добавленную производительность и меняем триггер усталости
@@ -46,9 +55,10 @@ namespace Enterprise_main
             {
                foreach(Developer e in buddy)
                 {
-                    e.set_AddPerformance(0);
+                    e.set_AddPerformance(e.getAddPerformance()-motivation);
                 }
                 tired = true;
+                alreadyUp = false;
             }
         }
         //Отдыхаем...
@@ -76,8 +86,13 @@ namespace Enterprise_main
         {
             foreach (Developer dev in buddy)
             {
-                dev.set_AddPerformance(0);
+                dev.set_AddPerformance(dev.getAddPerformance()-motivation);
             }
+        }
+
+        public override void improveSkill(int training)
+        {
+            this.managerSkill += training;
         }
     }
 }

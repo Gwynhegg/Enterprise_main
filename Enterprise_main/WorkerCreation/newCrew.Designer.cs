@@ -78,6 +78,7 @@
             this.btn_third.TabIndex = 2;
             this.btn_third.Text = "Выбрать";
             this.btn_third.UseVisualStyleBackColor = true;
+            this.btn_third.Visible = false;
             this.btn_third.Click += new System.EventHandler(this.btn_third_Click);
             // 
             // btn_second
@@ -88,6 +89,7 @@
             this.btn_second.TabIndex = 1;
             this.btn_second.Text = "Выбрать";
             this.btn_second.UseVisualStyleBackColor = true;
+            this.btn_second.Visible = false;
             this.btn_second.Click += new System.EventHandler(this.btn_second_Click);
             // 
             // btn_first
@@ -98,6 +100,7 @@
             this.btn_first.TabIndex = 0;
             this.btn_first.Text = "Выбрать";
             this.btn_first.UseVisualStyleBackColor = true;
+            this.btn_first.Visible = false;
             this.btn_first.Click += new System.EventHandler(this.btn_first_Click);
             // 
             // newCrew

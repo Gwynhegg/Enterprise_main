@@ -12,7 +12,7 @@ namespace Enterprise_main
         Random rnd = new Random();
         string temp;
         //Список предпочтений игроков
-        List<string> wanted = new List<string>() { "Horror","Shooter","RPG"};
+        List<string> wanted = new List<string>() { "Horror","Shooter","RPG","Simulator","Arcade","Strategy"};
         
     public int getPopulation()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Enterprise_main
 {
-     partial class GameCreation
+     partial class form_GameCreation
     {
         /// <summary>
         /// Required designer variable.
@@ -31,9 +31,9 @@
             this.txt_genre = new System.Windows.Forms.Label();
             this.Genre = new System.Windows.Forms.ComboBox();
             this.txt_size = new System.Windows.Forms.Label();
-            this.Size = new System.Windows.Forms.ComboBox();
+            this.GameSize = new System.Windows.Forms.ComboBox();
             this.txt_name = new System.Windows.Forms.Label();
-            this.Name = new System.Windows.Forms.TextBox();
+            this.GameName = new System.Windows.Forms.TextBox();
             this.btn_Create = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,7 +52,10 @@
             this.Genre.Items.AddRange(new object[] {
             "RPG",
             "Shooter",
-            "Horror"});
+            "Horror",
+            "Strategy",
+            "Simulator",
+            "Arcade"});
             this.Genre.Location = new System.Drawing.Point(57, 39);
             this.Genre.Name = "Genre";
             this.Genre.Size = new System.Drawing.Size(121, 21);
@@ -69,19 +72,19 @@
             this.txt_size.Text = "Теперь выберите размер игры";
             this.txt_size.Visible = false;
             // 
-            // Size
+            // GameSize
             // 
-            this.Size.FormattingEnabled = true;
-            this.Size.Items.AddRange(new object[] {
+            this.GameSize.FormattingEnabled = true;
+            this.GameSize.Items.AddRange(new object[] {
             "Small",
             "Medium",
             "Large"});
-            this.Size.Location = new System.Drawing.Point(57, 113);
-            this.Size.Name = "Size";
-            this.Size.Size = new System.Drawing.Size(121, 21);
-            this.Size.TabIndex = 3;
-            this.Size.Visible = false;
-            this.Size.TextChanged += new System.EventHandler(this.Size_TextChanged);
+            this.GameSize.Location = new System.Drawing.Point(57, 113);
+            this.GameSize.Name = "GameSize";
+            this.GameSize.Size = new System.Drawing.Size(121, 21);
+            this.GameSize.TabIndex = 3;
+            this.GameSize.Visible = false;
+            this.GameSize.TextChanged += new System.EventHandler(this.Size_TextChanged);
             // 
             // txt_name
             // 
@@ -93,13 +96,13 @@
             this.txt_name.Text = "И наконец, укажите имя вашего проекта";
             this.txt_name.Visible = false;
             // 
-            // Name
+            // GameName
             // 
-            this.Name.Location = new System.Drawing.Point(57, 201);
-            this.Name.Name = "Name";
-            this.Name.Size = new System.Drawing.Size(121, 20);
-            this.Name.TabIndex = 5;
-            this.Name.Visible = false;
+            this.GameName.Location = new System.Drawing.Point(57, 201);
+            this.GameName.Name = "GameName";
+            this.GameName.Size = new System.Drawing.Size(121, 20);
+            this.GameName.TabIndex = 5;
+            this.GameName.Visible = false;
             // 
             // btn_Create
             // 
@@ -112,18 +115,19 @@
             this.btn_Create.Visible = false;
             this.btn_Create.Click += new System.EventHandler(this.btn_Create_Click);
             // 
-            // GameCreation
+            // form_GameCreation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(243, 310);
             this.Controls.Add(this.btn_Create);
-            this.Controls.Add(this.Name);
+            this.Controls.Add(this.GameName);
             this.Controls.Add(this.txt_name);
-            this.Controls.Add(this.Size);
+            this.Controls.Add(this.GameSize);
             this.Controls.Add(this.txt_size);
             this.Controls.Add(this.Genre);
             this.Controls.Add(this.txt_genre);
+            this.Name = "form_GameCreation";
             this.Text = "GameCreation";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -135,9 +139,9 @@
         private System.Windows.Forms.Label txt_genre;
         private System.Windows.Forms.ComboBox Genre;
         private System.Windows.Forms.Label txt_size;
-        private System.Windows.Forms.ComboBox Size;
+        private System.Windows.Forms.ComboBox GameSize;
         private System.Windows.Forms.Label txt_name;
-        private System.Windows.Forms.TextBox Name;
+        private System.Windows.Forms.TextBox GameName;
         private System.Windows.Forms.Button btn_Create;
     }
 }

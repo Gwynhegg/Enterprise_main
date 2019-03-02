@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Enterprise_main
-{
-    public partial class GameCreation : Form
+{ 
+    //Выбор жанра, размера и имени игры с последующей передачей на главную форму
+    public partial class form_GameCreation : Form
     {
         public bool isDone = false;
 
-        public GameCreation()
+        public form_GameCreation()
         {
             InitializeComponent();
         }
@@ -22,19 +23,19 @@ namespace Enterprise_main
         private void Genre_TextChanged(object sender, EventArgs e)
         {
             txt_size.Visible = true;
-            Size.Visible = true;
+            GameSize.Visible = true;
         }
 
         private void Size_TextChanged(object sender, EventArgs e)
         {
             txt_name.Visible = true;
-            Name.Visible = true;
+            GameName.Visible = true;
             btn_Create.Visible = true;
         }
 
         private void btn_Create_Click(object sender, EventArgs e)
         {
-            if (Size.Text!="" && Genre.Text != "")
+            if (GameSize.Text!="" && Genre.Text != "")
             {
                 isDone = true;
                 this.Close();
@@ -51,12 +52,12 @@ namespace Enterprise_main
 
         public string getSize()
         {
-            return Size.Text;
+            return GameSize.Text;
         }
 
         public string getName()
         {
-            return Name.Text;
+            return GameName.Text;
         }
 
     }

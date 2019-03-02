@@ -35,7 +35,12 @@ namespace Enterprise_main
             Label name = new Label();
             crew1.Controls.Add(name);
             name.Location = new Point(10, 10);
-            name.Text = type;
+            name.Text = type +" №"+(i+1);
+            Label salary = new Label();
+            crew1.Controls.Add(salary);
+            salary.Name = "Salary";
+            salary.Location = new Point(10, 120);
+            salary.Text = "Зарплата:" + "\n";
             Label Skill = new Label();
             Skill.Name = "Skill";
             crew1.Controls.Add(Skill);
@@ -46,18 +51,25 @@ namespace Enterprise_main
                 crew1.Controls.Add(codeSkill);
                 codeSkill.Name = "codeSkill";
                 codeSkill.Location = new Point(10, 50);
-                codeSkill.Text = r.Next(100).ToString();
-                Skill.Text = r.Next(20).ToString();
+                codeSkill.Text = r.Next(40,100).ToString();
+                Skill.Text = r.Next(10,20).ToString();
+                salary.Text += ((Int32.Parse(codeSkill.Text) + Int32.Parse(Skill.Text)) * 10).ToString();
             }
             else
             {
-                Skill.Text = r.Next(100).ToString();
+                Skill.Text = r.Next(40,100).ToString();
+                salary.Text += ((Int32.Parse(Skill.Text)) * 10).ToString();
             }
+
             this.Controls.Add(crew1);
         }
 
         private void Crew_TextChanged(object sender, EventArgs e)
         {
+            btn_first.Visible = true;
+            btn_second.Visible = true;
+            btn_third.Visible = true;
+
             Crew.Enabled = false;
            for (int i = 0; i < 3; i++)
             {

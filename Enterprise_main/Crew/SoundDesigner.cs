@@ -8,10 +8,12 @@ namespace Enterprise_main
 {
     public class SoundDesigner : Developer
     {
-        private int designSkill;
-        int self_fatigue, salary;
+        private int designSkill,additional_skill;
+        int self_fatigue, salary,chance;
         double self_performance = 0.5, additional_performance = 0;
         bool tired;
+        Random rnd = new Random();
+        PrivateEffects negative_effects;
         //Конструктор класса, описывающий навыки звукового дизайнера, а также его зарплату
         public SoundDesigner(int designSkill)
         {
@@ -31,8 +33,23 @@ namespace Enterprise_main
             return salary;
         }
 
+        //Получение негативных зарактеристик, влияющих на работу
+        public override void AddNegatives(PrivateEffects effect)
+        {
+            negative_effects = effect;
+        }
+
         public override void ToWork(Game game)
         {
+            //Если негативные эффекты есть, то они оказывают влияние, пока не окончатся
+            if (negative_effects != null)
+            {
+                if (negative_effects.getDuration() >= 0) negative_effects.HaveEffect(this);
+
+            }
+
+            chance = rnd.Next(1, 50);
+            if (chance == 2) this.improveDesignSkill(1);
             //Если работа звук. дизайнера не закончена и звук. дизайнер не в отпуске, то...
             if (tired)
             //Если устал, то в отпуск
@@ -97,7 +114,12 @@ namespace Enterprise_main
 
         public override double getPerformance()
         {
-            return self_performance + additional_performance;
+            return self_performance;
+        }
+
+        public override double getAddPerformance()
+        {
+            return additional_performance;
         }
 
         public override int getDesignskill()
@@ -108,6 +130,20 @@ namespace Enterprise_main
         public override int getCodeskill()
         {
             return 0;
+        }
+        public override void set_AddEffSkill(int skill)
+        {
+            this.additional_skill = skill;
+        }
+
+        public override int getAddSkill()
+        {
+            return additional_skill;
+        }
+
+        public override void improveDesignSkill(int training)
+        {
+            this.designSkill += training;
         }
     }
 }

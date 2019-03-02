@@ -60,12 +60,13 @@
     <Compile Include="Game.cs" />
     <Compile Include="Crew\Human.cs" />
     <Compile Include="Crew\Manager.cs" />
-    <Compile Include="GameCreation.cs">
+    <Compile Include="GameCreation\GameCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameCreation.Designer.cs">
+    <Compile Include="GameCreation\GameCreation.Designer.cs">
       <DependentUpon>GameCreation.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrivateEffects\PrivateEffects.cs" />
     <Compile Include="WorkerCreation\newCrew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +79,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameCreation.resx">
+    <EmbeddedResource Include="GameCreation\GameCreation.resx">
       <DependentUpon>GameCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkerCreation\newCrew.resx">

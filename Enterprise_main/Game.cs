@@ -122,6 +122,24 @@ namespace Enterprise_main
                     codeDifficulty = 1000 * num;
                     plotDifficulty = 2000 * num;
                     break;
+                case "Simulator":
+                    soundDifficulty = 1000 * num;
+                    designDifficulty = 1000 * num;
+                    codeDifficulty = 2000 * num;
+                    plotDifficulty = 500 * num;
+                    break;
+                case "Strategy":
+                    soundDifficulty = 1000 * num;
+                    designDifficulty = 1500 * num;
+                    codeDifficulty = 1000 * num;
+                    plotDifficulty = 500 * num;
+                    break;
+                case "Arcade":
+                    soundDifficulty = 1000 * num;
+                    designDifficulty = 1500 * num;
+                    codeDifficulty = 500 * num;
+                    plotDifficulty = 1000 * num;
+                    break;
             }
             
             //Суммируем сложность

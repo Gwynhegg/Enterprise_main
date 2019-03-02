@@ -16,11 +16,13 @@ namespace Enterprise_main
         Customer customer1;
         string genre, size, title;
         int days = 0;
+        int beforeloss_money;
         bool FinalFlag = false;
         Game currentGame;
         List<Developer> crew;
         List<Manager> managers;
         DataTable dt,dt1;
+        Random r = new Random();
         public form_Enterprise()
         {
             InitializeComponent();
@@ -86,7 +88,7 @@ namespace Enterprise_main
             {
                 //Создаем проект
                 run_of_time.Enabled = false;
-                GameCreation form1 = new GameCreation();
+                form_GameCreation form1 = new form_GameCreation();
                 form1.ShowDialog();
                 if (form1.isDone)
                 {
@@ -129,6 +131,7 @@ namespace Enterprise_main
                 HireCrew();
             }
             run_of_time.Enabled = true;
+
         if (managers.Count != 0)
             {
                 foreach (Manager man in managers)
@@ -154,16 +157,24 @@ namespace Enterprise_main
 
             //Для каждого члена команды
             foreach (Developer buddy in crew)
-            {   
+            {
+                //С определенным шансом разработчик "подхватывает" эффекты
+                int chance = r.Next(1, 80);
+                if (chance==1) buddy.AddNegatives(new Depression(r.Next(1, 20)));
+    
                 if (days % 30 == 0)
                 {
 
                     //Выплачиваем зарплату в нужный срок
+                    
                     director1.setBudget(director1.returnBudget() - buddy.GetPaid());
                 }
 
+
                 //Выводим производительность и усталость
-                crewTable.Rows[crew.IndexOf(buddy)].Cells[3].Value = buddy.getPerformance();
+                if (buddy.GetType() == typeof(Programmer)) crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = buddy.getTotalCodeSkill(); else crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = 0;
+                crewTable.Rows[crew.IndexOf(buddy)].Cells[2].Value = buddy.getTotalDesignSkill();
+                crewTable.Rows[crew.IndexOf(buddy)].Cells[3].Value = buddy.getTotalPerformance().ToString("0.00");
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[4].Value = buddy.getFatigue();
                 //Отправляем работать
                 buddy.ToWork(currentGame);
@@ -179,6 +190,8 @@ namespace Enterprise_main
                 int sellment =  customer1.BuyGame(currentGame,our_price,rating);
                 director1.setBudget(director1.returnBudget() + sellment);
             }
+
+
         }
         //Функция, которая высчитывает средние характеристики специалистов и на их основе строит качество сделанной работы
         private double getAverage()
