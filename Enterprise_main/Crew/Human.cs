@@ -9,26 +9,81 @@ namespace Enterprise_main
     //Абстрактный класс
     public abstract class Human
     {
-        public abstract int GetPaid();
-        public abstract int getFatigue();
+        protected int self_fatigue, salary;
+
+        public  int GetPaid()
+        {
+            return salary;
+        }
+        public  int getFatigue()
+        {
+            return self_fatigue;
+        }
     }
 
     public abstract class Developer : Human
     {
         //Метод, описывающий работу
+        protected int designSkill, additional_skill = 0,chance, codeSkill;
+        protected double self_performance=0.5, additional_performance = 0;
+        protected bool tired;
+        protected Random rnd = new Random();
+        protected List<PrivateEffects> effects = new List<PrivateEffects>();
+
         public abstract void ToWork(Game game);
+
         //Метод, описывающий отдых
-        public abstract void GetRest(Game game);
+        public void GetRest(Game game)
+        {
+            //Каждый день усталость спадает, пока не опустится до нуля
+            self_fatigue -= 5;
+            if (self_fatigue <= 0)
+            {
+                game.setRested(game.getRested() + 1);
+                self_performance = 0.5;
+                self_fatigue = 0;
+                tired = false;
+            }
+        }
+
         //Геттеры для характеристик
-        public abstract int getDesignskill();
-        public abstract int getCodeskill();
-        public abstract int getAddSkill();
+        public  int getDesignskill()
+        {
+            return designSkill;
+        }
+
+        public  int getCodeskill()
+        {
+            return codeSkill;
+        }
+
+        public  int getAddSkill()
+        {
+            return additional_skill;
+        }
+
         //Метод, который рандомно повышае характеристики на один(Тренировка)
-        public abstract void improveDesignSkill(int training);
+        public  void improveDesignSkill(int training)
+        {
+            this.designSkill += training;
+        }
+
         //Геттеры и сеттеры для производительности и навыков
-        public abstract void set_AddPerformance(double performance);
-        public abstract double getAddPerformance();
-        public abstract double getPerformance();
+        public  void set_AddPerformance(double performance)
+        {
+            this.additional_performance += performance;
+        }
+
+        public  double getAddPerformance()
+        {
+            return additional_performance;
+        }
+
+        public  double getPerformance()
+        {
+            return self_performance;
+        }
+
         public double getTotalPerformance()
         {
             return getPerformance() + getAddPerformance();
@@ -64,21 +119,72 @@ namespace Enterprise_main
             plotDifficulty -= (int)(designSkill * (self_performance + additional_performance));
             game.set_plot_difficulty(plotDifficulty);
         }
-        public abstract void set_AddEffSkill(int skill);
+
+        public  void set_AddEffSkill(int skill)
+        {
+            this.additional_skill += skill;
+        }
+
         //Добавление негативных влияний
-        public abstract void AddNegatives(PrivateEffects eff);
+        public void AddNegatives(PrivateEffects eff)
+        {
+            effects.Add(eff);
+        }
+
+        public void EffectsWork()
+        {
+
+            if (effects.Count != 0)
+            {
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    effects[i].HaveEffect(this);
+                    if (effects[i].getDuration() == -1)
+                    {
+                        effects.Remove(effects[i]);
+                        i--;
+                    }
+                }
+            }
+        }
+
+        public void TiredCheck(Game game)
+        {
+
+            if (self_fatigue >= 100)
+            {                //Если возможное количество одновременно отдыхающих не исчерпано, то...
+
+                if (game.getRested() > 0)
+                {
+                    tired = true;
+                    game.setRested(game.getRested() - 1);
+                }
+                else
+                {                    //Если же возможности для отдыха нет, понижаем производительность
+
+                    if (self_performance > 0.01)
+                    {
+                        self_performance -= 0.01;
+                    }
+                }
+            }
+        }
     }
 
     public abstract class Coder : Developer
     {
         //тренинг навыков кодинга
-        public abstract void improveCodeSkill(int training);
+        public void improveCodeSkill(int training)
+        {
+            codeSkill += training;
+        }
         public void doCode(Game game, int codeSkill, double self_performance, double additional_performance)
         {
             int codeDifficulty = game.get_code_difficulty();
             codeDifficulty -= (int)(codeSkill * (self_performance + additional_performance));
             game.set_code_difficulty(codeDifficulty);
         }
+
     }
 
     public abstract class Managers : Human

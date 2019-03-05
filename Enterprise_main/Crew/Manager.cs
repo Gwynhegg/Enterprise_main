@@ -9,7 +9,7 @@ namespace Enterprise_main
     //Класс, описывающий работу менеджера
     public class Manager : Managers
     {
-        private int managerSkill,salary,self_fatigue,chance,startCount;
+        private int managerSkill,chance,startCount;
         private bool tired,alreadyUp=false;
         private double motivation;
         Random rnd = new Random();
@@ -20,11 +20,6 @@ namespace Enterprise_main
             self_fatigue = 0;
         }
 
-        //Выплачиваем менеджеру зарплату
-        public override int GetPaid()
-        {
-            return salary;
-        }
         //Менеджер работает, прибавляя производительность команде
         public override void ToWork(List<Developer> buddy)
         {
@@ -71,11 +66,6 @@ namespace Enterprise_main
                 tired = false;
                 alreadyUp = false;
             }
-        }
-
-        public override int getFatigue()
-        {
-            return self_fatigue;
         }
 
         public override int getManagerSkill()

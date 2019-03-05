@@ -30,7 +30,7 @@ namespace Enterprise_main
         public override void HaveEffect(Developer buddy)
         {
             if (!isActive){
-                if (buddy.getCodeskill() == 0) power = -buddy.getDesignskill() / 2; else power = -(Math.Min(buddy.getCodeskill(), buddy.getDesignskill()) / 2);
+                if (buddy is Programmer) power = -(Math.Min(buddy.getCodeskill(), buddy.getDesignskill()) / 2); else power = -buddy.getDesignskill() / 2;
                 buddy.set_AddEffSkill(power);
                 isActive = true;
                 duration--;

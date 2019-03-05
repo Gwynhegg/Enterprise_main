@@ -172,7 +172,7 @@ namespace Enterprise_main
 
 
                 //Выводим производительность и усталость
-                if (buddy.GetType() == typeof(Programmer)) crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = buddy.getTotalCodeSkill(); else crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = 0;
+                if (buddy is Programmer) crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = buddy.getTotalCodeSkill(); else crewTable.Rows[crew.IndexOf(buddy)].Cells[1].Value = 0;
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[2].Value = buddy.getTotalDesignSkill();
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[3].Value = buddy.getTotalPerformance().ToString("0.00");
                 crewTable.Rows[crew.IndexOf(buddy)].Cells[4].Value = buddy.getFatigue();
