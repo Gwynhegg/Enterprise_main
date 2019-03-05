@@ -13,18 +13,13 @@ namespace Enterprise_main
         double self_performance = 0.5, additional_performance = 0;
         bool tired;
         Random rnd = new Random();
-        PrivateEffects negative_effects;
+        List<PrivateEffects> effects = new List<PrivateEffects>();
         //Конструктор класса, описывающий навыки звукового дизайнера, а также его зарплату
         public SoundDesigner(int designSkill)
         {
             this.designSkill = designSkill;
             salary = designSkill*10;
             self_fatigue = 0;
-        }
-
-        public override void set_AddPerformance(double performance)
-        {
-            this.additional_performance = performance;
         }
 
         //Поступление платы звук. дизайнеру
@@ -36,18 +31,25 @@ namespace Enterprise_main
         //Получение негативных зарактеристик, влияющих на работу
         public override void AddNegatives(PrivateEffects effect)
         {
-            negative_effects = effect;
+            effects.Add(effect);
         }
 
         public override void ToWork(Game game)
         {
             //Если негативные эффекты есть, то они оказывают влияние, пока не окончатся
-            if (negative_effects != null)
+
+            if (effects.Count != 0)
             {
-                if (negative_effects.getDuration() >= 0) negative_effects.HaveEffect(this);
-
+                for (int i = 0; i < effects.Count; i++)
+                {
+                    effects[i].HaveEffect(this);
+                    if (effects[i].getDuration() == -1)
+                    {
+                        effects.Remove(effects[i]);
+                        i--;
+                    }
+                }
             }
-
             chance = rnd.Next(1, 50);
             if (chance == 2) this.improveDesignSkill(1);
             //Если работа звук. дизайнера не закончена и звук. дизайнер не в отпуске, то...
@@ -133,7 +135,7 @@ namespace Enterprise_main
         }
         public override void set_AddEffSkill(int skill)
         {
-            this.additional_skill = skill;
+            this.additional_skill += skill;
         }
 
         public override int getAddSkill()
@@ -145,5 +147,11 @@ namespace Enterprise_main
         {
             this.designSkill += training;
         }
+
+        public override void set_AddPerformance(double performance)
+        {
+            this.additional_performance += performance;
+        }
+
     }
 }

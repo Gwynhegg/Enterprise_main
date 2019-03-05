@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,15 +50,15 @@
     <Compile Include="Crew\Designer.cs" />
     <Compile Include="Crew\ScreenWriter.cs" />
     <Compile Include="Crew\SoundDesigner.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="Director.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Sellment\Customer.cs" />
+    <Compile Include="GameManagement\Director.cs" />
+    <Compile Include="form_Enterprise.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="form_Enterprise.Designer.cs">
+      <DependentUpon>form_Enterprise.cs</DependentUpon>
     </Compile>
-    <Compile Include="Game.cs" />
+    <Compile Include="GameManagement\Game.cs" />
     <Compile Include="Crew\Human.cs" />
     <Compile Include="Crew\Manager.cs" />
     <Compile Include="GameCreation\GameCreation.cs">
@@ -67,6 +68,12 @@
       <DependentUpon>GameCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="PrivateEffects\PrivateEffects.cs" />
+    <Compile Include="Sellment\FormSellment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sellment\FormSellment.Designer.cs">
+      <DependentUpon>FormSellment.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkerCreation\newCrew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +83,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Crew\Programmer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="form_Enterprise.resx">
+      <DependentUpon>form_Enterprise.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameCreation\GameCreation.resx">
       <DependentUpon>GameCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sellment\FormSellment.resx">
+      <DependentUpon>FormSellment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkerCreation\newCrew.resx">
       <DependentUpon>newCrew.cs</DependentUpon>

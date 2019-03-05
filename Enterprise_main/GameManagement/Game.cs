@@ -36,6 +36,17 @@ namespace Enterprise_main
             numOfBugs++;
         }
 
+        public int getSize()
+        {
+            switch (size)
+            {
+                case "Small": return 0; 
+                case "Medium": return 1; 
+                case "Large": return 2;
+            }
+            return 0;
+        }
+
         //Дебаггинг
         public void Debug()
         {

@@ -9,7 +9,7 @@ namespace Enterprise_main
     //Класс, описывающий работу менеджера
     public class Manager : Managers
     {
-        private int managerSkill,salary,self_fatigue,chance;
+        private int managerSkill,salary,self_fatigue,chance,startCount;
         private bool tired,alreadyUp=false;
         private double motivation;
         Random rnd = new Random();
@@ -28,8 +28,6 @@ namespace Enterprise_main
         //Менеджер работает, прибавляя производительность команде
         public override void ToWork(List<Developer> buddy)
         {
-            double temp = (double)managerSkill / 100;
-            motivation = (temp / buddy.Count());
 
             chance = rnd.Next(1, 25);
             if (chance == 1) this.improveSkill(1);
@@ -40,12 +38,15 @@ namespace Enterprise_main
             } else
             { //Иначе увеличиваем производительность
 
-                if (!alreadyUp)
-                {
+               if (!alreadyUp)
+               {
+                    double temp = (double)managerSkill / 100;
+                    motivation = (temp / buddy.Count());
+                    startCount = buddy.Count;
                     foreach (Developer e in buddy)
                     {
-                        e.set_AddPerformance(e.getAddPerformance() + motivation);
-                        alreadyUp=true;
+                        e.set_AddPerformance(motivation);
+                        alreadyUp = true;
                     }
                 }
             }
@@ -53,12 +54,11 @@ namespace Enterprise_main
             self_fatigue += 2;
             if (self_fatigue >= 100)
             {
-               foreach(Developer e in buddy)
+               for(int i=0;i<startCount;i++)
                 {
-                    e.set_AddPerformance(e.getAddPerformance()-motivation);
+                    buddy[i].set_AddPerformance(-motivation);
                 }
                 tired = true;
-                alreadyUp = false;
             }
         }
         //Отдыхаем...
@@ -69,6 +69,7 @@ namespace Enterprise_main
             {
                 self_fatigue = 0;
                 tired = false;
+                alreadyUp = false;
             }
         }
 
@@ -84,9 +85,12 @@ namespace Enterprise_main
         //При увольнении менеджера его увеличение производительности отменяется
         public override void Dismissed(List<Developer> buddy)
         {
-            foreach (Developer dev in buddy)
+            if (!tired)
             {
-                dev.set_AddPerformance(dev.getAddPerformance()-motivation);
+                for(int i=0;i<startCount;i++)
+                {
+                    buddy[i].set_AddPerformance(-motivation);
+                }
             }
         }
 

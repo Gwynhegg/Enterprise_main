@@ -38,7 +38,8 @@ namespace Enterprise_main
             {
                 if (duration != 0) duration--; else
                 {
-                    buddy.set_AddEffSkill(0);
+                    duration--;
+                    buddy.set_AddEffSkill(-power);
                 }
                 }
             }

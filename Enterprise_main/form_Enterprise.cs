@@ -16,8 +16,8 @@ namespace Enterprise_main
         Customer customer1;
         string genre, size, title;
         int days = 0;
-        int beforeloss_money;
         bool FinalFlag = false;
+        double rating = 0;
         Game currentGame;
         List<Developer> crew;
         List<Manager> managers;
@@ -60,7 +60,7 @@ namespace Enterprise_main
             label5.Visible = true;
             //Создаем директора предприятия
             director1 = new Director(txt_nameofFirm.Text, Int32.Parse(txt_startBudget.Text));
-            customer1 = new Customer(20000);
+            customer1 = new Customer(2000);
             //Выводим данные о бюджете и названии предприятия
             txt_Budget.Text = director1.returnBudget().ToString();
             txt_currName.Text = director1.returnName().ToString();
@@ -159,7 +159,7 @@ namespace Enterprise_main
             foreach (Developer buddy in crew)
             {
                 //С определенным шансом разработчик "подхватывает" эффекты
-                int chance = r.Next(1, 80);
+                int chance = r.Next(1, 50);
                 if (chance==1) buddy.AddNegatives(new Depression(r.Next(1, 20)));
     
                 if (days % 30 == 0)
@@ -185,9 +185,16 @@ namespace Enterprise_main
                 //Высчитываем желательную цену продажи, оценку критиков, продаем и пополняем бюджет
                 currReadiness.Maximum = 100;
                 label4.Text = "Готовность:";
-                double rating = getAverage();
+                rating = getAverage();
                 int our_price = director1.SellGame(customer1.getPopulation());
-                int sellment =  customer1.BuyGame(currentGame,our_price,rating);
+                run_of_time.Enabled = false;
+                int sellment = customer1.BuyGame(currentGame, our_price, rating);
+                form_Sellment formSellment = new form_Sellment(customer1.getPopulation(), rating, sellment);
+                formSellment.ShowDialog();
+                if (formSellment.isDone)
+                {
+                    run_of_time.Enabled = true;
+                }
                 director1.setBudget(director1.returnBudget() + sellment);
             }
 

@@ -51,13 +51,13 @@ namespace Enterprise_main
                 crew1.Controls.Add(codeSkill);
                 codeSkill.Name = "codeSkill";
                 codeSkill.Location = new Point(10, 50);
-                codeSkill.Text = r.Next(40,100).ToString();
+                codeSkill.Text = r.Next(40,60).ToString();
                 Skill.Text = r.Next(10,20).ToString();
                 salary.Text += ((Int32.Parse(codeSkill.Text) + Int32.Parse(Skill.Text)) * 10).ToString();
             }
             else
             {
-                Skill.Text = r.Next(40,100).ToString();
+                Skill.Text = r.Next(40,60).ToString();
                 salary.Text += ((Int32.Parse(Skill.Text)) * 10).ToString();
             }
 

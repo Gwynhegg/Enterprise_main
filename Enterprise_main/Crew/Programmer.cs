@@ -15,7 +15,7 @@ namespace Enterprise_main
         double self_performance = 0.5,additional_performance=0;
         bool tired;
         Random rnd = new Random();
-        PrivateEffects negative_effects;
+        List<PrivateEffects> effects = new List<PrivateEffects>();
         //Конструктор класса, описывающий дизайнерские и кодерские навыки программиста, а также его зарплату
         public Programmer(int codeSkill, int designSkill)
         {
@@ -34,16 +34,23 @@ namespace Enterprise_main
         //Получение негативных зарактеристик, влияющих на работу
         public override void AddNegatives(PrivateEffects effect)
         {
-            negative_effects = effect;
+            effects.Add(effect);
         }
         //Программист работает...
         public override void ToWork(Game game)
         {
             //Если негативные эффекты есть, то они оказывают влияние, пока не окончатся
-            if (negative_effects != null)
-            {
-                if (negative_effects.getDuration() >= 0) negative_effects.HaveEffect(this);
 
+            if (effects.Count != 0)
+            {
+                for(int i=0;i<effects.Count;i++)
+                {
+                    effects[i].HaveEffect(this);
+                    if (effects[i].getDuration() == -1) {
+                        effects.Remove(effects[i]);
+                        i--;
+                    }
+                }
             }
             chance = rnd.Next(1, 50);
             if (chance == 1) this.improveCodeSkill(1);
@@ -128,7 +135,7 @@ namespace Enterprise_main
 
         public override void set_AddPerformance(double performance)
         {
-            this.additional_performance = performance;
+            this.additional_performance += performance;
         }
 
         public override double getAddPerformance()
@@ -148,7 +155,7 @@ namespace Enterprise_main
 
         public override void set_AddEffSkill(int skill)
         {
-            this.additional_skill = skill;
+            this.additional_skill += skill;
         }
 
         public override int getAddSkill()

@@ -27,7 +27,9 @@ G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.
 G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.csproj.CoreCompileInputs.cache
 G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.exe
 G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.pdb
-D:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.GameCreation.resources
 D:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.newCrew.resources
 G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.newCrew.resources
 G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_GameCreation.resources
+G:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_Sellment.resources
+D:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_GameCreation.resources
+D:\Project_Enterprise\Enterprise_main\Enterprise_main\obj\Debug\Enterprise_main.form_Sellment.resources

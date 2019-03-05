@@ -40,7 +40,18 @@ namespace Enterprise_main
             //Вычитываем желание покупки в зависимости от предпочтений, количества багов (И КАЧЕСТВА!!!!!!!)
             double desire = (100 - (wanted.IndexOf(game.getGenre()) * 10)-(game.Bugs()))*rating;
             //Возвращаем деньги от продажи игры 
-            return (population * (int)desire / 100)*our_price;
+            if (desire >= 50) desire += 10 * game.getSize(); else desire -= 10 * game.getSize();
+            if (desire <=0) desire=0.01;
+            if (desire > 100) population = (int)(population * (desire / 100));
+            return (int)(population * desire / 100)*our_price;
+        }
+
+    public void ChangePopulation()
+        {
+            if (rnd.Next(10) > 2) population += rnd.Next(population / 100); else
+            {
+                if (population - population / 100 > 0) population -= rnd.Next(population / 100);
+            }
         }
     }
 }
