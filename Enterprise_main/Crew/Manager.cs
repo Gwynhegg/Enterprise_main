@@ -88,5 +88,10 @@ namespace Enterprise_main
         {
             this.managerSkill += training;
         }
+
+        public bool getTired()
+        {
+            return tired;
+        }
     }
 }

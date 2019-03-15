@@ -38,7 +38,7 @@ namespace Enterprise_main
     public int BuyGame(Game game,int our_price, double rating)
         {
             //Вычитываем желание покупки в зависимости от предпочтений, количества багов (И КАЧЕСТВА!!!!!!!)
-            double desire = (100 - (wanted.IndexOf(game.getGenre()) * 10)-(game.Bugs()))*rating;
+            double desire = (100 - (wanted.IndexOf(game.getGenre()) * 10)-(game.getHiddenBugs()))*rating;
             //Возвращаем деньги от продажи игры 
             if (desire >= 50) desire += 10 * game.getSize(); else desire -= 10 * game.getSize();
             if (desire <=0) desire=0.01;
@@ -48,9 +48,9 @@ namespace Enterprise_main
 
     public void ChangePopulation()
         {
-            if (rnd.Next(10) > 2) population += rnd.Next(population / 100); else
+            if (rnd.Next(10) > 3) population += rnd.Next(population / 2); else
             {
-                if (population - population / 100 > 0) population -= rnd.Next(population / 100);
+                if (population - population / 5 > 0) population -= rnd.Next(population / 5);
             }
         }
     }

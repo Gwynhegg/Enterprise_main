@@ -129,6 +129,7 @@
             this.Controls.Add(this.txt_genre);
             this.Name = "form_GameCreation";
             this.Text = "GameCreation";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -26,9 +26,9 @@ namespace Enterprise_main
         public form_Sellment(int population, double rating, int sellment)
         {
             InitializeComponent();
-            this.txt_Population.Text = population.ToString();
-            this.txt_Rating.Text = rating.ToString("0.00");
-            this.txt_Sellment.Text = sellment.ToString();
+            this_Population.Text = population.ToString();
+            this_Rating.Text = rating.ToString("0.00");
+            this_Sellment.Text = sellment.ToString();
         }
     }
 }

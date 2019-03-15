@@ -116,6 +116,7 @@
             this.Controls.Add(this.txt_crew);
             this.Name = "newCrew";
             this.Text = "newCrew";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

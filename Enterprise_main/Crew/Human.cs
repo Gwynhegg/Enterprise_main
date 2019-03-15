@@ -169,7 +169,12 @@ namespace Enterprise_main
                 }
             }
         }
+        public bool getTired()
+        {
+            return tired;
+        }
     }
+
 
     public abstract class Coder : Developer
     {

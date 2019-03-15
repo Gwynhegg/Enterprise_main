@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterPanel\CharacterPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CharacterPanel\CharacterPanel.Designer.cs">
+      <DependentUpon>CharacterPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Crew\Designer.cs" />
     <Compile Include="Crew\ScreenWriter.cs" />
     <Compile Include="Crew\SoundDesigner.cs" />
@@ -83,6 +89,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Crew\Programmer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CharacterPanel\CharacterPanel.resx">
+      <DependentUpon>CharacterPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form_Enterprise.resx">
       <DependentUpon>form_Enterprise.cs</DependentUpon>
     </EmbeddedResource>

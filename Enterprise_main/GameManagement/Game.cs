@@ -10,9 +10,10 @@ namespace Enterprise_main
     {
         private string genre, title, size;
         private int soundDifficulty, designDifficulty, codeDifficulty, plotDifficulty;
-        private int numOfBugs;
+        private int numOfBugs, hiddenBugs;
         private double sumDifficulty, startDifficulty;
         private int numOfRested;
+        Random r = new Random();
 
         //конструктор класса, определяющий жанр, размер и название игры
         public Game(string genre,string size,string title)
@@ -51,8 +52,13 @@ namespace Enterprise_main
         public void Debug()
         {
             numOfBugs--;
+            if (r.Next(50) == 1) hiddenBugs++;
         }
 
+        public int getHiddenBugs()
+        {
+            return hiddenBugs;
+        }
         public int Bugs()
         {
             return numOfBugs;
